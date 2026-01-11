@@ -1,0 +1,37 @@
+{
+    "tasks": [
+        {
+            "type": "set",
+            "params": {
+                "key": "projectName",
+                "value": "PulseForge"
+            }
+        },
+        {
+            "id": "greeting",
+            "type": "log",
+            "params": {
+                "message": "Starting {{projectName}} execution"
+            }
+        },
+        {
+            "type": "readFile",
+            "params": {
+                "path": "./input.txt",
+                "as": "fileContent"
+            }
+        },
+        {
+            "type": "log",
+            "params": {
+                "message": "File content: {{fileContent}}"
+            }
+        },
+        {
+            "type": "wait",
+            "params": {
+                "ms": 2000
+            }
+        }
+    ]
+}
