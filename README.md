@@ -1,97 +1,42 @@
 # PulseForge Engine
 
-PulseForge is an experimental developer automation engine for running
-local workflows and task pipelines.
+> **Status: parked / experimental.** A small CLI task pipeline runner I built
+> while exploring workflow execution patterns. Not actively maintained —
+> kept here as a reference snippet for sequential task orchestration with
+> shared state.
 
-It is being built from the ground up to explore workflow execution, task
-orchestration, and extensible tooling for developer operations. The
-project focuses on building a clean, modular execution core that can
-support file processing, API-driven tasks, and composable automation
-workflows.
+## What it does
 
-PulseForge is currently in early development, with the initial execution
-engine and CLI foundation under active construction.
+Runs a sequence of tasks defined in `config.json`. Each task receives shared
+execution state and returns a result. Built-in handlers cover the basics:
 
-------------------------------------------------------------------------
+| Type       | Purpose                                  |
+| ---------- | ---------------------------------------- |
+| `set`      | Write a value into shared state          |
+| `log`      | Print a message (with `{{key}}` interp)  |
+| `readFile` | Read file contents into shared state     |
+| `wait`     | Pause execution for N ms                 |
 
-## Project Goals
+## Quick start
 
-PulseForge is designed to:
-
--   Provide a CLI-first workflow execution engine\
--   Support sequential and composable task pipelines\
--   Pass structured state between tasks\
--   Offer clear execution logging and error handling\
--   Evolve toward a modular, extensible automation platform
-
-The long-term direction is to support real developer workflows such as
-file processing, automation pipelines, API orchestration, and internal
-tooling.
-
-------------------------------------------------------------------------
-
-## Core Concepts
-
-At its core, PulseForge is built around a simple execution model:
-
--   Workflows are defined in configuration files\
--   Each workflow consists of an ordered list of tasks\
--   Tasks receive input parameters and shared execution state\
--   Tasks perform work and return results back to the engine\
--   The engine coordinates execution, logging, and error handling
-
-This foundation is intended to evolve into a more formal execution
-engine with richer task types, stronger validation, and extensibility
-mechanisms.
-
-------------------------------------------------------------------------
-
-## Current Status
-
-PulseForge is in early-stage development.
-
-Current focus areas include:
-
--   CLI bootstrap and execution entry point\
--   Configuration loading and validation\
--   Sequential task execution pipeline\
--   Shared execution state\
--   Structured logging and error handling
-
-Architecture, interfaces, and capabilities are expected to evolve as the
-engine matures.
-
-------------------------------------------------------------------------
-
-## Getting Started (Early)
-
-Note: This project is under active development. Interfaces and
-configuration formats may change.
-
-``` bash
-git clone https://github.com/yourusername/pulseforge.git
-cd pulseforge
+```bash
 npm install
-npm run start
+node index.js
 ```
 
-Details on configuration format and available task types will be
-documented as the execution engine stabilizes.
+Edit `config.json` to define the task sequence. Add new handlers in
+`handlers.js` and register them in `index.js`.
 
-------------------------------------------------------------------------
+## What's actually here
 
-## Roadmap (High-Level)
+- `index.js` — execution loop (~40 lines)
+- `handlers.js` — built-in task handlers (~50 lines)
+- `config.json` — example workflow
+- `input.txt` — sample input file
 
--   Core execution engine\
--   Config-driven workflows\
--   Built-in task library (file, API, utility tasks)\
--   Improved validation and error surfaces\
--   Execution result persistence\
--   Extensibility and plugin system\
--   Testing and documentation expansion
-
-------------------------------------------------------------------------
+Small on purpose. Useful for understanding the core pattern; not a
+production tool.
 
 ## License
 
-MIT License
+MIT.
